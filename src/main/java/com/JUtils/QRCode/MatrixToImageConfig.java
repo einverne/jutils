@@ -22,6 +22,8 @@ public final class MatrixToImageConfig {
     }
 
     /**
+     * 二维码前景色，背景色
+     *
      * @param onColor pixel on color, specified as an ARGB value as an int
      * @param offColor pixel off color, specified as an ARGB value as an int
      */
@@ -41,7 +43,8 @@ public final class MatrixToImageConfig {
     int getBufferedImageColorModel() {
         // Use faster BINARY if colors match default
 //    return onColor == BLACK && offColor == WHITE ? BufferedImage.TYPE_BYTE_BINARY : BufferedImage.TYPE_INT_RGB;
-        return BufferedImage.TYPE_INT_ARGB;
+        return BufferedImage.TYPE_INT_ARGB;         // 颜色模式PNG
+//        return BufferedImage.TYPE_INT_RGB;          // 用于 JPG 的颜色模式
     }
 
 }
