@@ -31,10 +31,10 @@ public class RegexUtils {
      * 检查手机号是否合法
      *
      * @param phone 手机号 移动、联通、电信运营商的号码段
-     *<p>移动的号段：134(0-8)、135、136、137、138、139、147（预计用于TD上网卡）
-     *、150、151、152、157（TD专用）、158、159、187（未启用）、188（TD专用）</p>
-     *<p>联通的号段：130、131、132、155、156（世界风专用）、185（未启用）、186（3g）</p>
-     *<p>电信的号段：133、153、180（未启用）、189</p>
+     * <p>移动的号段：134(0-8)、135、136、137、138、139、147（预计用于TD上网卡）
+     * 、150、151、152、157（TD专用）、158、159、187（未启用）、188（TD专用）</p>
+     * <p>联通的号段：130、131、132、155、156（世界风专用）、185（未启用）、186（3g）</p>
+     * <p>电信的号段：133、153、180（未启用）、189</p>
      * @return true 合法
      */
     public static boolean isPhone(String phone) {
@@ -100,16 +100,18 @@ public class RegexUtils {
 
     /**
      * 验证日期（年月日）
+     *
      * @param birthday 日期，格式：1992-09-03，或1992.09.03
      * @return 验证成功返回true，验证失败返回false
      */
     public static boolean checkBirthday(String birthday) {
         String regex = "[1-9]{4}([-./])\\d{1,2}\\1\\d{1,2}";
-        return Pattern.matches(regex,birthday);
+        return Pattern.matches(regex, birthday);
     }
 
     /**
      * 验证URL地址
+     *
      * @param url 格式：http://blog.csdn.net:80/xyang81/article/details/7705960? 或 http://www.csdn.net:80
      * @return 验证成功返回true，验证失败返回false
      */
@@ -133,6 +135,7 @@ public class RegexUtils {
 
     /**
      * 匹配中国邮政编码
+     *
      * @param postcode 邮政编码
      * @return 验证成功返回true，验证失败返回false
      */
@@ -143,6 +146,7 @@ public class RegexUtils {
 
     /**
      * 匹配IP地址(简单匹配，格式，如：192.168.1.1，127.0.0.1，没有匹配IP段的大小)
+     *
      * @param ipAddress IPv4标准地址
      * @return 验证成功返回true，验证失败返回false
      */

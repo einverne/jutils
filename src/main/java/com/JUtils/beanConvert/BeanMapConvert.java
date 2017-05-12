@@ -22,13 +22,12 @@ public class BeanMapConvert {
      *
      * @param object
      * @return String-Object的HashMap
-     *
      * @author chenssy
      * @date 2016-09-25
      * @since v1.0.0
      */
-    public static Map<String,Object> bean2MapObject(Object object){
-        if(object == null){
+    public static Map<String, Object> bean2MapObject(Object object) {
+        if (object == null) {
             return null;
         }
 
@@ -48,7 +47,7 @@ public class BeanMapConvert {
                 }
             }
         } catch (Exception e) {
-           e.printStackTrace();
+            e.printStackTrace();
         }
 
         return map;
@@ -57,18 +56,15 @@ public class BeanMapConvert {
     /**
      * Map转换为Java Bean
      *
-     * @param map
-     *              待转换的Map
-     * @param object
-     *              Java Bean
+     * @param map 待转换的Map
+     * @param object Java Bean
      * @return java.lang.Object
-     *
      * @author chenssy
      * @date 2016-09-25
      * @since v1.0.0
      */
-    public static Object map2Bean(Map map,Object object){
-        if(map == null || object == null){
+    public static Object map2Bean(Map map, Object object) {
+        if (map == null || object == null) {
             return null;
         }
         try {
