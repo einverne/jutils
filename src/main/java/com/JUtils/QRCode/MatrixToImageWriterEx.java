@@ -33,7 +33,7 @@ public class MatrixToImageWriterEx {
         hints.put(EncodeHintType.CHARACTER_SET, "utf-8");
         // 指定纠错等级
         hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);
-        hints.put(EncodeHintType.MARGIN, 1);
+        hints.put(EncodeHintType.MARGIN, 1);        // 边距控制，默认为4
         BitMatrix matrix = null;
         try {
             matrix = new MultiFormatWriter().encode(content, BarcodeFormat.QR_CODE, width, height, hints);
