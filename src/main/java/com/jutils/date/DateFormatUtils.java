@@ -7,8 +7,6 @@ import java.util.Date;
 /**
  * 日期格式化工具类
  *
- * @Author:chenssy
- * @date:2016年5月26日 下午12:39:57
  */
 public class DateFormatUtils {
     /** yyyy:年 */
@@ -99,6 +97,9 @@ public class DateFormatUtils {
         }
         try {
             switch (date.trim().length()) {
+                case 15:
+                    inFmt = new SimpleDateFormat("yyyyMMdd HHmmss");
+                    break;
                 case 14:
                     inFmt = new SimpleDateFormat("yyyyMMddHHmmss");
                     break;
@@ -141,8 +142,6 @@ public class DateFormatUtils {
      * @param date
      * @param format
      * @return
-     * @author chenming
-     * @date 2016年5月31日
      */
     public static String formatDate(Date date, String format) {
         return formatDate(DateUtils.date2String(date), format);
@@ -152,8 +151,6 @@ public class DateFormatUtils {
      * @param value
      * @return
      * @desc:格式化是时间，采用默认格式（yyyy-MM-dd HH:mm:ss）
-     * @autor:chenssy
-     * @date:2014年8月6日
      */
     public static String formatDate(String value) {
         return getFormat(DATE_FORMAT2).format(DateUtils.string2Date(value, DATE_FORMAT2));
@@ -164,8 +161,6 @@ public class DateFormatUtils {
      *
      * @param value
      * @return
-     * @author : chenssy
-     * @date : 2016年5月31日 下午5:40:58
      */
     public static String formatDate(Date value) {
         return formatDate(DateUtils.date2String(value));

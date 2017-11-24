@@ -48,7 +48,7 @@ public class FileUtils {
      * @date:2014年8月11日
      */
     public static String getFileName(String type, String prefix, String suffix) {
-        String date = DateUtils.getCurrentTime("yyyyMMddHH24mmss");   //当前时间
+        String date = DateUtils.getCurrentTimeWithFormat("yyyyMMddHH24mmss");   //当前时间
         String random = RandomUtils.generateNumberString(10);   //10位随机数
 
         //返回文件名
@@ -75,7 +75,7 @@ public class FileUtils {
      * @date:2014年8月11日
      */
     public static String getFileName() {
-        String date = DateUtils.getCurrentTime("yyyyMMddHH24mmss");   //当前时间
+        String date = DateUtils.getCurrentTimeWithFormat("yyyyMMddHH24mmss");   //当前时间
         String random = RandomUtils.generateNumberString(10);   //10位随机数
 
         //返回文件名

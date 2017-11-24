@@ -7,9 +7,30 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * @desc:时间处理工具类
- * @Author:chenssy
- * @date:2014年8月4日
+ * Letter    Date or Time Component  Presentation    Examples
+ * G         Era designator          Text            AD
+ * y         Year                    Year            1996; 96
+ * Y         Week year               Year            2009; 09
+ * M         Month in year           Month           July; Jul; 07
+ * w         Week in year            Number          27
+ * W         Week in month           Number          2
+ * D         Day in year             Number          189
+ * d         Day in month            Number          10
+ * F         Day of week in month    Number          2
+ * E         Day name in week        Text            Tuesday; Tue
+ * u         Day number of week (1 = Monday, ..., 7 = Sunday) Number 1
+ * a         Am/pm marker            Text            PM
+ * H         Hour in day (0-23)      Number          0
+ * k         Hour in day (1-24)      Number          24
+ * K         Hour in am/pm (0-11)    Number          0
+ * h         Hour in am/pm (1-12)    Number          12
+ * m         Minute in hour          Number          30
+ * s         Second in minute        Number          55
+ * S         Millisecond             Number          978
+ *
+ * 大部分情况下使用 apache.commons 中的 DateUtils 就能满足绝大多数需求
+ *
+ * 时间处理工具类
  */
 public class DateUtils {
     private static final String[] weeks = {"星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"};
@@ -19,10 +40,8 @@ public class DateUtils {
      *
      * @param format
      * @return String
-     * @author chenssy
-     * @date Dec 27, 2013
      */
-    public static String getCurrentTime(String format) {
+    public static String getCurrentTimeWithFormat(String format) {
         SimpleDateFormat sdf = DateFormatUtils.getFormat(format);
         Date date = new Date();
         return sdf.format(date);
@@ -32,24 +51,20 @@ public class DateUtils {
      * 获取当前时间，格式为：yyyy-MM-dd HH:mm:ss
      *
      * @return String
-     * @author chenssy
-     * @date Dec 27, 2013
      */
     public static String getCurrentTime() {
-        return getCurrentTime(DateFormatUtils.DATE_FORMAT2);
+        return getCurrentTimeWithFormat(DateFormatUtils.DATE_FORMAT2);
     }
 
     /**
-     * 获取指定格式的当前时间：为空时格式为yyyy-mm-dd HH:mm:ss
+     * 获取指定格式的当前时间
      *
-     * @param format
-     * @return Date
-     * @author chenssy
-     * @date Dec 30, 2013
+     * @param format 为空时格式为yyyy-mm-dd HH:mm:ss
+     * @return Date 日期对象
      */
-    public static Date getCurrentDate(String format) {
+    public static Date getCurrentDateWithFormat(String format) {
         SimpleDateFormat sdf = DateFormatUtils.getFormat(format);
-        String dateS = getCurrentTime(format);
+        String dateS = getCurrentTimeWithFormat(format);
         Date date = null;
         try {
             date = sdf.parse(dateS);
@@ -63,11 +78,22 @@ public class DateUtils {
      * 获取当前时间，格式为yyyy-MM-dd HH:mm:ss
      *
      * @return Date
-     * @author chenssy
-     * @date Dec 30, 2013
      */
     public static Date getCurrentDate() {
-        return getCurrentDate(DateFormatUtils.DATE_FORMAT2);
+        return getCurrentDateWithFormat(DateFormatUtils.DATE_FORMAT2);
+    }
+
+    /**
+     * 将日期字符串按照特定的format 解析为 Date
+     *
+     * @param dateStr 日期字符串，比如 "Oct 1, 2015 12:00:00 AM"
+     * @param format 对应的 format 为 "MMM dd, yyyy hh:mm:ss a"
+     * @return 解析得到的 Date 对象
+     * @throws ParseException
+     */
+    public static Date parseDate(String dateStr, String format) throws ParseException {
+        SimpleDateFormat sdf = DateFormatUtils.getFormat(format);
+        return sdf.parse(dateStr);
     }
 
     /**
@@ -77,8 +103,6 @@ public class DateUtils {
      * @param date 为空时，默认为当前时间
      * @param format 默认格式为：yyyy-MM-dd HH:mm:ss
      * @return String
-     * @author chenssy
-     * @date Dec 30, 2013
      */
     public static String addYearToDate(int year, Date date, String format) {
         Calendar calender = getCalendar(date, format);
@@ -96,8 +120,6 @@ public class DateUtils {
      * @param date 为空时，默认为当前时间
      * @param format 默认格式为：yyyy-MM-dd HH:mm:ss
      * @return String
-     * @author chenssy
-     * @date Dec 30, 2013
      */
     public static String addYearToDate(int year, String date, String format) {
         Date newDate = new Date();
@@ -134,8 +156,6 @@ public class DateUtils {
      * @param date 指定时间
      * @param format 指定格式 为空默认 yyyy-mm-dd HH:mm:ss
      * @return String
-     * @author chenssy
-     * @date Dec 30, 2013
      */
     public static String addMothToDate(int month, String date, String format) {
         Date newDate = new Date();
@@ -172,8 +192,6 @@ public class DateUtils {
      * @param date 指定日期
      * @param format 日期格式 为空默认 yyyy-mm-dd HH:mm:ss
      * @return String
-     * @author chenssy
-     * @date Dec 31, 2013
      */
     public static String addDayToDate(int day, String date, String format) {
         Date newDate = new Date();
@@ -305,12 +323,10 @@ public class DateUtils {
      * @param date 时间
      * @param format 格式
      * @return Calendar
-     * @author chenssy
-     * @date Dec 30, 2013
      */
     public static Calendar getCalendar(Date date, String format) {
         if (date == null) {
-            date = getCurrentDate(format);
+            date = getCurrentDateWithFormat(format);
         }
 
         Calendar calender = Calendar.getInstance();
@@ -322,13 +338,11 @@ public class DateUtils {
     /**
      * 字符串转换为日期，日期格式为
      *
-     * @param value
-     * @return
-     * @author : chenssy
-     * @date : 2016年5月31日 下午5:20:22
+     * @param dataStr yyyy-MM-dd HH:mm:ss"
+     * @return Date
      */
-    public static Date string2Date(String value) {
-        if (value == null || "".equals(value)) {
+    public static Date string2Date(String dataStr) {
+        if (dataStr == null || "".equals(dataStr)) {
             return null;
         }
 
@@ -336,8 +350,8 @@ public class DateUtils {
         Date date = null;
 
         try {
-            value = DateFormatUtils.formatDate(value, DateFormatUtils.DATE_FORMAT2);
-            date = sdf.parse(value);
+            dataStr = DateFormatUtils.formatDate(dataStr, DateFormatUtils.DATE_FORMAT2);
+            date = sdf.parse(dataStr);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -350,8 +364,6 @@ public class DateUtils {
      * @param value 需要转换的字符串
      * @param format 日期格式
      * @return Date
-     * @author chenssy
-     * @date Dec 31, 2013
      */
     public static Date string2Date(String value, String format) {
         if (value == null || "".equals(value)) {
@@ -376,8 +388,6 @@ public class DateUtils {
      * @param value 需要转换的日期
      * @param format 日期格式
      * @return String
-     * @author chenssy
-     * @date Dec 31, 2013
      */
     public static String date2String(Date value, String format) {
         if (value == null) {
@@ -393,8 +403,6 @@ public class DateUtils {
      *
      * @param value
      * @return
-     * @author : chenssy
-     * @date : 2016年5月31日 下午5:21:38
      */
     public static String date2String(Date value) {
         if (value == null) {
@@ -410,8 +418,6 @@ public class DateUtils {
      *
      * @param value 日期
      * @return int
-     * @author chenssy
-     * @date Dec 31, 2013
      */
     public static int getCurrentYear(Date value) {
         String date = date2String(value, DateFormatUtils.DATE_YEAR);
@@ -423,8 +429,6 @@ public class DateUtils {
      *
      * @param value 日期
      * @return int
-     * @author chenssy
-     * @date Dec 31, 2013
      */
     public static int getCurrentYear(String value) {
         Date date = string2Date(value, DateFormatUtils.DATE_YEAR);
@@ -437,8 +441,6 @@ public class DateUtils {
      *
      * @param value 日期
      * @return int
-     * @author chenssy
-     * @date Dec 31, 2013
      */
     public static int getCurrentMonth(Date value) {
         String date = date2String(value, DateFormatUtils.DATE_MONTH);
@@ -450,8 +452,6 @@ public class DateUtils {
      *
      * @param value 日期
      * @return int
-     * @author chenssy
-     * @date Dec 31, 2013
      */
     public static int getCurrentMonth(String value) {
         Date date = string2Date(value, DateFormatUtils.DATE_MONTH);
@@ -461,12 +461,10 @@ public class DateUtils {
     }
 
     /**
-     * 获取指定日期的天份
+     * 获取指定日期在一个月的天数
      *
      * @param value 日期
      * @return int
-     * @author chenssy
-     * @date Dec 31, 2013
      */
     public static int getCurrentDay(Date value) {
         String date = date2String(value, DateFormatUtils.DATE_DAY);
@@ -474,17 +472,14 @@ public class DateUtils {
     }
 
     /**
-     * 获取指定日期的天份
+     * 获取指定日期的在一个月中的天数
      *
      * @param value 日期
      * @return int
-     * @author chenssy
-     * @date Dec 31, 2013
      */
     public static int getCurrentDay(String value) {
         Date date = string2Date(value, DateFormatUtils.DATE_DAY);
         Calendar calendar = getCalendar(date, DateFormatUtils.DATE_DAY);
-
         return calendar.get(Calendar.DATE);
     }
 
@@ -493,23 +488,18 @@ public class DateUtils {
      *
      * @param value 日期
      * @return String
-     * @author chenssy
-     * @date Dec 31, 2013
      */
     public static String getCurrentWeek(Date value) {
         Calendar calendar = getCalendar(value, DateFormatUtils.DATE_FORMAT1);
         int weekIndex = calendar.get(Calendar.DAY_OF_WEEK) - 1 < 0 ? 0 : calendar.get(Calendar.DAY_OF_WEEK) - 1;
-
         return weeks[weekIndex];
     }
 
     /**
      * 获取当前日期为星期几
      *
-     * @param value 日期
+     * @param value 日期 格式为 yyyy-MM-dd
      * @return String
-     * @author chenssy
-     * @date Dec 31, 2013
      */
     public static String getCurrentWeek(String value) {
         Date date = string2Date(value, DateFormatUtils.DATE_FORMAT1);
@@ -520,28 +510,32 @@ public class DateUtils {
      * 获取指定日期的小时
      *
      * @param value 日期
-     * @return int
-     * @author chenssy
-     * @date Dec 31, 2013
+     * @return int 24 小时制
      */
     public static int getCurrentHour(Date value) {
-        String date = date2String(value, DateFormatUtils.DATE_HOUR);
-        return Integer.valueOf(date);
+        if (value == null) {
+            return -1;
+        }
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(value);
+        return calendar.get(Calendar.HOUR_OF_DAY);
     }
 
     /**
      * 获取指定日期的小时
      *
      * @param value 日期
-     * @return int
-     * @author chenssy
-     * @date Dec 31, 2013
+     * @return int 24 小时制
      */
     public static int getCurrentHour(String value) {
-        Date date = string2Date(value, DateFormatUtils.DATE_HOUR);
-        Calendar calendar = getCalendar(date, DateFormatUtils.DATE_HOUR);
-
-        return calendar.get(Calendar.DATE);
+        Date date = null;
+        try {
+            date = parseDate(value, DateFormatUtils.DATE_FORMAT2);
+            return getCurrentHour(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 
     /**
@@ -549,8 +543,6 @@ public class DateUtils {
      *
      * @param value 日期
      * @return int
-     * @author chenssy
-     * @date Dec 31, 2013
      */
     public static int getCurrentMinute(Date value) {
         String date = date2String(value, DateFormatUtils.DATE_MINUTE);
@@ -598,7 +590,7 @@ public class DateUtils {
             formatStyle = "yyyy";
         }
 
-        endDay = endDay == null ? getCurrentTime("yyyy-MM-dd") : endDay;
+        endDay = endDay == null ? getCurrentTimeWithFormat("yyyy-MM-dd") : endDay;
 
         DateFormat df = new SimpleDateFormat(formatStyle);
         Calendar c1 = Calendar.getInstance();
@@ -756,4 +748,5 @@ public class DateUtils {
         now.set(now.DATE, last_day_of_week);
         return now.getTime();
     }
+
 }
