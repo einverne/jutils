@@ -687,8 +687,6 @@ public class DateUtils {
      *
      * @param date
      * @return
-     * @author : chenssy
-     * @date : 2016年5月31日 下午5:31:10
      */
     public static String getMonthFirstDate(String date) {
         date = DateFormatUtils.formatDate(date);
@@ -698,10 +696,8 @@ public class DateUtils {
     /**
      * 获取指定月份的最后一天
      *
-     * @param strdate
+     * @param date
      * @return
-     * @author : chenssy
-     * @date : 2016年5月31日 下午5:32:09
      */
     public static String getMonthLastDate(String date) {
         Date strDate = DateUtils.string2Date(getMonthFirstDate(date));
@@ -717,8 +713,6 @@ public class DateUtils {
      *
      * @param date
      * @return
-     * @author : chenssy
-     * @date : 2016年6月1日 下午12:38:53
      */
     @SuppressWarnings("static-access")
     public static Date getWeekFirstDate(Date date) {
@@ -749,4 +743,9 @@ public class DateUtils {
         return now.getTime();
     }
 
+
+
+    public static boolean isToday(Date date) {
+        return true;
+    }
 }

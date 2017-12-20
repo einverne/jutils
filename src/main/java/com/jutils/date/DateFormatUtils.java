@@ -76,6 +76,12 @@ public class DateFormatUtils {
         return sReturn;
     }
 
+    /**
+     * 传入常见的日期字符串，及想要格式化
+     * @param date
+     * @param format
+     * @return
+     */
     public static String formatDate(String date, String format) {
         if (date == null || "".equals(date)) {
             return "";
@@ -84,17 +90,17 @@ public class DateFormatUtils {
         SimpleDateFormat inFmt = null;
         SimpleDateFormat outFmt = null;
         ParsePosition pos = new ParsePosition(0);
-        date = date.replace("-", "").replace(":", "");
+        date = date.replace("-", "").replace(":", "").replace(" ", "");
         if ((date == null) || ("".equals(date.trim()))) {
             return "";
         }
-        try {
-            if (Long.parseLong(date) == 0L) {
-                return "";
-            }
-        } catch (Exception nume) {
-            return date;
-        }
+//        try {
+//            if (Long.parseLong(date) == 0L) {
+//                return "";
+//            }
+//        } catch (Exception nume) {
+//            return date;
+//        }
         try {
             switch (date.trim().length()) {
                 case 15:

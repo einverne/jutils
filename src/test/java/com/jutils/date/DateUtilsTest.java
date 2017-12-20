@@ -122,12 +122,16 @@ public class DateUtilsTest {
 
     @Test
     public void getCurrentYear() throws Exception {
-
+        int currentYear = DateUtils.getCurrentYear(new Date());
+        System.out.println(currentYear);
     }
 
     @Test
     public void getCurrentYear1() throws Exception {
-
+        int currentYear = DateUtils.getCurrentYear("2018-01-01");
+        System.out.println(currentYear);
+        currentYear = DateUtils.getCurrentYear("2017-01-01 01:00:01");
+        System.out.println(currentYear);
     }
 
     @Test
