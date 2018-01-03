@@ -1,6 +1,5 @@
 package com.jutils.re;
 
-import static org.junit.Assert.*;
 import org.junit.Test;
 
 import java.util.regex.Pattern;
@@ -20,5 +19,4 @@ public class ReUtilTest {
     public void m11() throws Exception {
 
     }
-
 }
