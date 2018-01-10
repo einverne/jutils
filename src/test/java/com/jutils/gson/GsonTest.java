@@ -2,6 +2,7 @@ package com.jutils.gson;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import net.sf.json.JSONObject;
 import org.junit.Test;
 
 /**
@@ -53,5 +54,20 @@ public class GsonTest {
                 "}";
         SampleObject sampleObject = gson.fromJson(demoStr, SampleObject.class);
         System.out.println(sampleObject);
+    }
+
+    @Test
+    public void partJson() {
+        String response = "{\n" +
+                "    \"response\": {\n" +
+                "        \"profile\": {\n" +
+                "            \"id\": 8873\n" +
+                "       }\n" +
+                "    }\n" +
+                "}";
+
+        JSONObject responseObject = new JSONObject().fromObject(response);
+        JSONObject jsonObject = responseObject.optJSONObject("response");
+
     }
 }
