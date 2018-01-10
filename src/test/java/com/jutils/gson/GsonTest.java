@@ -70,4 +70,12 @@ public class GsonTest {
         JSONObject jsonObject = responseObject.optJSONObject("response");
 
     }
+
+    @Test
+    public void serializeWithExpose() {
+        Gson g = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        Person person = new Person(1L, "Name", "into");
+        String s = g.toJson(person);
+        System.out.println(s);
+    }
 }
