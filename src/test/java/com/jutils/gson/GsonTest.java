@@ -2,8 +2,15 @@ package com.jutils.gson;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.jutils.retrofit.ApiXu;
+import com.jutils.retrofit.WeatherRetro;
+import com.jutils.retrofit.entity.Weather;
 import net.sf.json.JSONObject;
 import org.junit.Test;
+import retrofit2.Call;
+import retrofit2.Response;
+
+import java.io.IOException;
 
 /**
  * Created by mi on 18-1-8.
@@ -78,4 +85,19 @@ public class GsonTest {
         String s = g.toJson(person);
         System.out.println(s);
     }
+
+    @Test
+    public void testApiXu() {
+        ApiXu instance = WeatherRetro.getInstance();
+        Call<Weather> weather = instance.getWeather();
+        try {
+            Response<Weather> response = weather.execute();
+            if (response.isSuccessful()) {
+                Weather body = response.body();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
