@@ -1,11 +1,13 @@
-package com.jutils.gson;
+package com.jutils.gson.entity;
 
 import com.google.gson.annotations.Expose;
+
+import java.util.List;
 
 /**
  * Created by mi on 18-1-10.
  */
-public class Person {
+public class PersonTransient {
 
     private long id;
 
@@ -15,7 +17,18 @@ public class Person {
     @Expose
     private String intro;
 
-    public Person(long id, String name, String intro) {
+    private transient int age;
+
+    private List<Grade> gradeList;
+
+    public PersonTransient(long id, String name, String intro, int age) {
+        this.id = id;
+        this.name = name;
+        this.intro = intro;
+        this.age = age;
+    }
+
+    public PersonTransient(long id, String name, String intro) {
         this.id = id;
         this.name = name;
         this.intro = intro;
@@ -43,5 +56,13 @@ public class Person {
 
     public void setIntro(String intro) {
         this.intro = intro;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 }

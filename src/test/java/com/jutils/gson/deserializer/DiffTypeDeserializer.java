@@ -1,4 +1,4 @@
-package com.jutils.gson;
+package com.jutils.gson.deserializer;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -6,6 +6,9 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
+import com.jutils.gson.entity.Assinatura;
+import com.jutils.gson.entity.DiffTypeBase;
+import com.jutils.gson.entity.Unico;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

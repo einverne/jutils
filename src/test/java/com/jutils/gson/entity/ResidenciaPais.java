@@ -1,4 +1,4 @@
-package com.jutils.gson;
+package com.jutils.gson.entity;
 
 import com.google.gson.annotations.SerializedName;
 

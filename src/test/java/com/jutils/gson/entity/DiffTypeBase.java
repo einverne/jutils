@@ -1,4 +1,4 @@
-package com.jutils.gson;
+package com.jutils.gson.entity;
 
 /**
  * Created by mi on 18-1-11.

@@ -1,6 +1,7 @@
-package com.jutils.gson;
+package com.jutils.gson.entity;
 
 import com.google.gson.annotations.SerializedName;
+import com.jutils.gson.entity.ResidenciaBase;
 
 import java.util.List;
 

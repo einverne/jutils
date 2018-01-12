@@ -3,6 +3,15 @@ package com.jutils.gson;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.jutils.gson.deserializer.DiffTypeDeserializer;
+import com.jutils.gson.deserializer.SampleDeserializer;
+import com.jutils.gson.entity.Car;
+import com.jutils.gson.entity.DiffTypeBase;
+import com.jutils.gson.entity.PersonAnnotation;
+import com.jutils.gson.entity.PersonStrategy;
+import com.jutils.gson.entity.PersonTransient;
+import com.jutils.gson.entity.SampleObject;
+import com.jutils.gson.strategy.ExcluStrategy;
 import com.jutils.retrofit.ApiXu;
 import com.jutils.retrofit.WeatherRetro;
 import com.jutils.retrofit.entity.Weather;
@@ -85,8 +94,8 @@ public class GsonTest {
     @Test
     public void serializeWithExpose() {
         Gson g = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-        Person person = new Person(1L, "Name", "into");
-        String s = g.toJson(person);
+        PersonTransient personTransient = new PersonTransient(1L, "Name", "into");
+        String s = g.toJson(personTransient);
         System.out.println(s);
     }
 
@@ -110,5 +119,35 @@ public class GsonTest {
         }.getType();
         Gson g = new GsonBuilder().registerTypeAdapter(listType, new DiffTypeDeserializer()).create();
         List<DiffTypeBase> base = g.fromJson("", listType);
+    }
+
+    @Test
+    public void ignoreField() {
+        // way1
+
+        PersonTransient personTransient = new PersonTransient(2L, "name", "tro", 18);
+        String s = new Gson().toJson(personTransient);
+        System.out.println(s);
+
+        Gson g1 = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        String s1 = g1.toJson(personTransient);
+        System.out.println(s1);
+    }
+
+    @Test
+    public void ignoreWithStrategy() {
+        PersonStrategy strategy = new PersonStrategy(3L, "name", "intro", 20);
+        strategy.setCar(new Car("BMW", 1000000));
+        Gson gson = new GsonBuilder().setExclusionStrategies(new ExcluStrategy()).create();
+        String s = gson.toJson(strategy);
+        System.out.println(s);
+    }
+
+    @Test
+    public void annotationTest() {
+        PersonAnnotation annotation = new PersonAnnotation(1L, "name", 10);
+        Gson gson = new GsonBuilder().setExclusionStrategies(new AnnotationExclusionStrategy()).create();
+        String s = gson.toJson(annotation);
+        System.out.println(s);
     }
 }

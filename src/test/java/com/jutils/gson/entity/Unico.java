@@ -1,13 +1,14 @@
-package com.jutils.gson;
+package com.jutils.gson.entity;
 
 import com.google.gson.annotations.SerializedName;
+import com.jutils.gson.entity.DiffTypeBase;
 
 import java.util.List;
 
 /**
  * Created by mi on 18-1-11.
  */
-public class Unico extends DiffTypeBase{
+public class Unico extends DiffTypeBase {
     @SerializedName("line_items")
     private LineItem lineItem;
 
