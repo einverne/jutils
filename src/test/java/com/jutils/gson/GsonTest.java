@@ -2,6 +2,7 @@ package com.jutils.gson;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.jutils.retrofit.ApiXu;
 import com.jutils.retrofit.WeatherRetro;
 import com.jutils.retrofit.entity.Weather;
@@ -11,6 +12,9 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by mi on 18-1-8.
@@ -100,4 +104,11 @@ public class GsonTest {
         }
     }
 
+    @Test
+    public void diffType() {
+        Type listType = new TypeToken<ArrayList<DiffTypeBase>>() {
+        }.getType();
+        Gson g = new GsonBuilder().registerTypeAdapter(listType, new DiffTypeDeserializer()).create();
+        List<DiffTypeBase> base = g.fromJson("", listType);
+    }
 }
