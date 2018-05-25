@@ -4,7 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by mi on 17-11-23.
+ * 正则相关方法
  */
 public class ReUtil {
 
@@ -13,7 +13,7 @@ public class ReUtil {
      *
      * @param regex regex pattern
      * @param text text
-     * @return
+     * @return first match
      */
     public static String m1(String regex, String text) {
         Pattern compile = Pattern.compile(regex);
@@ -38,4 +38,7 @@ public class ReUtil {
         return isMatch(pattern, text);
     }
 
+    public static String rmPunctuation(String title) {
+        return title.replaceAll("[\\pP\\pZ\\~\\!\\@\\#\\$\\%\\^\\&\\*\\(\\)\\_\\+\\`\\-\\=\\[\\]\\;\\'\\,\\.\\/{}|:\"<>\\?]+", "");
+    }
 }
