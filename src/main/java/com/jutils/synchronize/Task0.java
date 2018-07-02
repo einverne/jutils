@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class Task0 {
 
-	private int var = 0;
+	private int var = 0;        // 在 Task0 实例中，如果多个线程同时访问 var 变量就会出现问题
 
 	public static void main(String[] args) {
 		Task0 task0 = new Task0();

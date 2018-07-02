@@ -15,6 +15,8 @@ synchronized 方法控制对类成员变量的访问：每个类**实例**对应
      
 在 Java 中，不光是类实例，每一个类也对应一把锁，这样我们也可将类的静态成员函数声明为 synchronized ，以控制其对类的静态成员变量的访问。
 
+当 synchronized 关键字添加到 static 方法上时是给 Class 类上锁，而加到普通方法时是对对象上锁。Class 锁会对类所有的实例起到作用。
+
 synchronized 方法的缺陷：若将一个大的方法声明为synchronized 将会大大影响效率，典型地，若将线程类的方法 run() 声明为 synchronized ，由于在线程的整个生命期内它一直在运行，因此将导致它对本类任何 synchronized 方法的调用都永远不会成功。当然我们可以通过将访问类成员变量的代码放到专门的方法中，将其声明为 synchronized ，并在主方法中调用来解决这一问题，但是 Java 为我们提供了更好的解决办法，那就是 synchronized 块。
      
 ## synchronized 块
@@ -88,11 +90,11 @@ synchronized 块是这样一个代码块，其中的代码必须获得对象 syn
 
 把synchronized当作函数修饰符时，示例代码如下：
 
-    Public synchronized void methodAAA() {
+    public synchronized void methodAAA() {
     //...
     }
 
-这也就是同步方法，那这时synchronized锁定的是哪个对象呢？它锁定的是调用这个同步方法对象。也就是说，当一个对象P1在不同的线程中执行这个同步方法时，它们之间会形成互斥，达到同步的效果。但是这个对象所属的Class所产生的另一对象P2却可以任意调用这个被加了synchronized关键字的方法。
+这也就是同步方法，那这时 synchronized 锁定的是哪个对象呢？它锁定的是调用这个同步方法对象。也就是说，当一个对象P1在不同的线程中执行这个同步方法时，它们之间会形成互斥，达到同步的效果。但是这个对象所属的 Class 所产生的另一对象P2却可以任意调用这个被加了 synchronized 关键字的方法。
 
 上边的示例代码等同于如下代码：
 
