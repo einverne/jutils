@@ -8,41 +8,41 @@ import java.lang.reflect.InvocationTargetException;
  */
 public enum SingletonEnum {
 
-    INSTANCE;
-    private String value;
+	INSTANCE;
+	private String value;       // 存放耗资源的类
 
-    SingletonEnum() {
-        System.out.println("instance created");
-    }
+	SingletonEnum() {
+		System.out.println("instance created");
+	}
 
-    public String getValue() {
-        return value;
-    }
+	public static void main(String[] args) {
+		SingletonEnum instance = SingletonEnum.INSTANCE;
+		instance.setValue("hello");
+		String value = instance.getValue();
+		System.out.println(value);
+		SingletonEnum instance1 = SingletonEnum.INSTANCE;
 
-    public void setValue(String value) {
-        this.value = value;
-    }
+		Class<SingletonEnum> singletonEnumClass = SingletonEnum.class;
+		try {
+			Constructor<SingletonEnum> constructor = singletonEnumClass.getConstructor();
+			constructor.setAccessible(true);
+			SingletonEnum singletonEnum = constructor.newInstance();
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		}
+	}
 
-    public static void main(String[] args) {
-        SingletonEnum instance = SingletonEnum.INSTANCE;
-        instance.setValue("hello");
-        String value = instance.getValue();
-        System.out.println(value);
-        SingletonEnum instance1 = SingletonEnum.INSTANCE;
+	public String getValue() {
+		return value;
+	}
 
-        Class<SingletonEnum> singletonEnumClass = SingletonEnum.class;
-        try {
-            Constructor<SingletonEnum> constructor = singletonEnumClass.getConstructor();
-            constructor.setAccessible(true);
-            SingletonEnum singletonEnum = constructor.newInstance();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        }
-    }
+	public void setValue(String value) {
+		this.value = value;
+	}
 }
