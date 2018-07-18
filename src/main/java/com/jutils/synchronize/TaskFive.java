@@ -50,7 +50,7 @@ public class TaskFive {
         try {
             for (int i = 0; i < 5; i++) {
                 var += 2;
-                System.out.println("m1 " + var);
+                System.out.println("m2 " + var);
                 TimeUnit.MILLISECONDS.sleep(500);
             }
         } catch (InterruptedException e) {
@@ -61,16 +61,17 @@ public class TaskFive {
     }
 
     /**
+     * m1 m2 的前后顺序并不能保证
      * output
-     * m1 1
-     * m1 2
-     * m1 3
-     * m1 4
-     * m1 5
-     * m1 7
-     * m1 9
-     * m1 11
-     * m1 13
-     * m1 15
+     m2 2
+     m2 4
+     m2 6
+     m2 8
+     m2 10
+     m1 11
+     m1 12
+     m1 13
+     m1 14
+     m1 15
      */
 }
