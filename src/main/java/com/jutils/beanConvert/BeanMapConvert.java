@@ -11,10 +11,6 @@ import java.util.Map;
 
 /**
  * Bean与Map的转换
- *
- * @author chenssy
- * @date 2016-09-24
- * @since 1.0.0
  */
 public class BeanMapConvert {
     /**
