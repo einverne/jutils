@@ -1,4 +1,4 @@
-package com.jutils.list;
+package com.jutils.dynamic;
 
 public class LongestIncreasingSebsequence {
 

@@ -2,13 +2,12 @@ package com.jutils.dynamic;
 
 /**
  * 最长公共子序列问题
- *
  */
 public class LongestCommonSubsequence {
 
 	public static void main(String[] args) {
-		String s1 = "AGGTAB";
-		String s2 = "GXTXAYB";
+		String s1 = "AGGTABC";
+		String s2 = "GXTXAYBCZ";
 
 		char[] str1 = s1.toCharArray();
 		char[] str2 = s2.toCharArray();
@@ -16,7 +15,7 @@ public class LongestCommonSubsequence {
 		System.out.println(length);
 
 		char[] chars = lcsLengthNonRecursive(str1, str2, str1.length, str2.length);
-		for (char a : chars){
+		for (char a : chars) {
 			System.out.print(a);
 		}
 	}
@@ -46,6 +45,9 @@ public class LongestCommonSubsequence {
 		}
 	}
 
+	/**
+	 * 非递归实现
+	 */
 	public static char[] lcsLengthNonRecursive(char[] str1, char[] str2, int m, int n) {
 		int[][] L = new int[m + 1][n + 1];
 		for (int i = 0; i <= m; ++i) {
@@ -60,7 +62,7 @@ public class LongestCommonSubsequence {
 			}
 		}
 
-		int index = L[m][n];
+		int index = L[m][n]; //  [m][n] 最大length
 		char[] lcs = new char[index];
 
 		int i = m, j = n;
