@@ -25,6 +25,8 @@ target/
 .idea/**/gradle.xml
 .idea/**/libraries
 
+.idea/codeStyles/
+
 # CMake
 cmake-build-debug/
 
