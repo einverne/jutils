@@ -11,6 +11,17 @@ public class StringHandlerUtils {
 
 		Assert.assertTrue(strSum("A1CD2B33 ") == 36);
 		Assert.assertTrue(strSum("A-1B--2C--D6E") == 7);
+
+		String rmK = removeContinueK("00A00B000", '0', 2);
+		Assert.assertEquals(rmK, "AB000");
+
+		char[] chars = "ABCDE".toCharArray();
+		reverse(chars, 1, 3);
+		System.out.println(chars);
+
+		char[] chars1 = "In God we trust".toCharArray();
+		rotateWord(chars1);
+		System.out.println(chars1);
 	}
 
 	/**
@@ -70,5 +81,89 @@ public class StringHandlerUtils {
 			}
 		}
 		return sum;
+	}
+
+	/**
+	 * 移除字符串中连续k 相连的 c 字符
+	 *
+	 * <pre>
+	 *     比如 A00B000, 0, 2 则输出 AB000
+	 * </pre>
+	 */
+	public static String removeContinueK(String s, char c, int k) {
+		if (k < 2 || StringUtils.isBlank(s)) {
+			return s;
+		}
+		StringBuilder sb = new StringBuilder();
+		char cur;
+		int cnt = 0;
+		for (int i = 0; i < s.toCharArray().length; i++) {
+			if (s.charAt(i) == c) {
+				cnt++;
+			} else {
+				if (cnt > 0 && cnt != k) {
+					while (cnt > 0) {
+						sb.append(c);
+						cnt--;
+					}
+				} else if (cnt == k) {
+					cnt = 0;
+				}
+				sb.append(s.charAt(i));
+			}
+		}
+		if (cnt > 0 && cnt != k) {
+			while (cnt > 0) {
+				sb.append(c);
+				cnt--;
+			}
+		}
+		return sb.toString();
+	}
+
+	/**
+	 * 逆转 start end 之间的内容
+	 */
+	public static void reverse(char[] str, int start, int end) {
+		if (start < 0 || end > str.length) {
+			return;
+		}
+		while (start < end) {
+			char temp = str[start];
+			str[start] = str[end];
+			str[end] = temp;
+			start++;
+			end--;
+		}
+	}
+
+	/**
+	 * 翻转句子中的所有单词，比如 "I'm a student" -> "student a I'm" 思路先将句子中所有内容反转，然后在逆序单词
+	 */
+	public static void rotateWord(char[] chars) {
+		if (chars == null || chars.length <= 0) {
+			return;
+		}
+		reverse(chars, 0, chars.length - 1);
+		int l = -1, r = -1;
+		for (int i = 0; i < chars.length; i++) {
+			if (chars[i] != ' ') {
+				if (i == 0 || chars[i - 1] == ' ') {
+					l = i;
+				} else {
+					l = l;
+				}
+				if (i == chars.length - 1 || chars[i + 1] == ' ') {
+					r = i;
+				} else {
+					r = r;
+				}
+			}
+			if (l != -1 && r != -1) {
+				reverse(chars, l, r);
+				l = -1;
+				r = -1;
+			}
+		}
 	}
 }
