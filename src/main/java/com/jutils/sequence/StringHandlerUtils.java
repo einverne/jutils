@@ -22,6 +22,9 @@ public class StringHandlerUtils {
 		char[] chars1 = "In God we trust".toCharArray();
 		rotateWord(chars1);
 		System.out.println(chars1);
+
+		int i = minLen("adabbca", "acb");
+		Assert.assertTrue(i == 3);
 	}
 
 	/**
@@ -165,5 +168,43 @@ public class StringHandlerUtils {
 				r = -1;
 			}
 		}
+	}
+
+	/**
+	 * 最小包含字串长度，返回 str1 中包含 str2 所有字符的最小子串长度
+	 *
+	 * <pre>
+	 *     比如 adabbca  acb  -> 输出长度 3
+	 * </pre>
+	 */
+	public static int minLen(String str1, String str2) {
+		if (StringUtils.isEmpty(str1) || StringUtils.isEmpty(str2)) {
+			return 0;
+		}
+		int left = 0, right = 0, minLength = Integer.MAX_VALUE;
+		int match = str2.length(); // 当前匹配数量
+		char[] c1 = str1.toCharArray();
+		char[] c2 = str2.toCharArray();
+		int[] map = new int[256];
+		for (char c : c2) {
+			map[c]++;
+		}
+		while (right < c1.length) {
+			if (--map[c1[right]] >= 0) {
+				match--;
+			}
+			if (match == 0) {
+				while (map[c1[left]] < 0) {  // map 中 < 0 表示子串中已经多了
+					map[c1[left]]++;
+					left++; // 右移 left
+				}
+				minLength = Math.min(minLength, right - left + 1);
+				match++;
+				map[c1[left]]++;
+				left++;
+			}
+			right++;
+		}
+		return minLength == Integer.MAX_VALUE ? 0 : minLength;
 	}
 }
