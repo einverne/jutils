@@ -26,6 +26,8 @@ target/
 .idea/**/libraries
 
 .idea/codeStyles/
+.idea/inspectionProfiles
+.idea/encodings.xml
 
 # CMake
 cmake-build-debug/

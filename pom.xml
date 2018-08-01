@@ -89,6 +89,14 @@
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>2.6</version>
+        <configuration>
+          <encoding>UTF-8</encoding>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.0</version>
         <configuration>
@@ -99,10 +107,126 @@
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>3.1.1</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>2.22.0</version>
         <configuration>
           <skip>true</skip>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <version>1.4.1</version>
+        <executions>
+          <execution>
+            <id>no-duplicate-declared-dependencies</id>
+            <goals>
+              <goal>display-info</goal>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <!--<AlwaysFail/>-->
+                <!--<AlwaysPass/>-->
+                <banDuplicatePomDependencyVersions/>
+                <banDistributionManagement>
+                  <allowRepository>false</allowRepository>
+                  <allowSnapshotRepository>false</allowSnapshotRepository>
+                  <allowSite>false</allowSite>
+                  <message>Only use one distribution Management</message>
+                </banDistributionManagement>
+                <bannedDependencies>
+                  <!--是否检查传递性依赖(间接依赖)-->
+                  <searchTransitive>true</searchTransitive>
+                  <excludes>
+                    <!--excludes:禁止依赖列表;其表示格式为groupId[:artifactId][:version][:type][:scope][:classifier]中括号内为可选,可使用通配符替换整体或者部分-->
+                    <exclude>log4j:log4j:[0.0,1.2.17)</exclude>
+                    <exclude>org.slf4j:slf4j-log4j12</exclude>
+                  </excludes>
+                  <message>must use TestNG</message>
+                </bannedDependencies>
+              </rules>
+            </configuration>
+          </execution>
+          <execution>
+            <!-- 单独执行 mvn enforcer:enforce@convergence -->
+            <id>convergence</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <dependencyConvergence/>
+              </rules>
+              <fail>false</fail>
+            </configuration>
+          </execution>
+          <execution>
+            <!-- mvn enforcer:enforce@ban-plugin -->
+            <id>ban-plugin</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <bannedPlugins>
+                  <!-- will only display a warning but does not fail the build. -->
+                  <level>WARN</level>
+                  <excludes>
+                    <exclude>org.apache.maven.plugins:maven-verifier-plugin</exclude>
+                  </excludes>
+                  <message>Please consider using the maven-invoker-plugin (http://maven.apache.org/plugins/maven-invoker-plugin/)!</message>
+                </bannedPlugins>
+              </rules>
+            </configuration>
+          </execution>
+          <execution>
+            <!-- mvn enforcer:enforce@ban-dependencies -->
+            <id>ban-dependencies</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <bannedDependencies>
+                  <!-- 是否检查依赖传递 -->
+                  <searchTransitive>false</searchTransitive>
+                  <excludes>
+                    <exclude>org.apache.maven</exclude>
+                    <exclude>org.apache.maven:badArtifact</exclude>
+                    <exclude>*:badArtifact</exclude>
+                    <!--<exclude>com.google.code.gson</exclude>-->
+                  </excludes>
+                  <includes>
+                    <!--only 1.0 of badArtifact is allowed-->
+                    <include>org.apache.maven:badArtifact:1.0</include>
+                  </includes>
+                  <message>检查这些依赖</message>
+                </bannedDependencies>
+              </rules>
+              <fail>true</fail>
+            </configuration>
+          </execution>
+        </executions>
+        <configuration>
+          <rules>
+            <requireMavenVersion>
+              <version>3.1.1</version>
+              <message>Maven 版本注意</message>
+            </requireMavenVersion>
+            <requireJavaVersion>
+              <version>1.6.0</version>
+              <message>Java 版本注意</message>
+            </requireJavaVersion>
+            <requireOS>
+              <family>unix</family>
+            </requireOS>
+          </rules>
         </configuration>
       </plugin>
     </plugins>
