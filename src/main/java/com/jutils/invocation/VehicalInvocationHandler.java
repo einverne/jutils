@@ -3,6 +3,9 @@ package com.jutils.invocation;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
+/**
+ * XXHandler 处理者，处理业务逻辑等
+ */
 public class VehicalInvocationHandler implements InvocationHandler {
 
 	private final IVehical vehical;
@@ -16,7 +19,6 @@ public class VehicalInvocationHandler implements InvocationHandler {
 		System.out.println("--before running...");
 		Object ret = method.invoke(vehical, args);
 		System.out.println("--after running...");
-
 		return ret;
 	}
 }
