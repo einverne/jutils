@@ -7,8 +7,6 @@ import java.math.BigDecimal;
 /**
  * 提供精确的加减乘除运算
  *
- * @Author:chenssy
- * @date:2014年9月15日
  */
 public class BigDecimalUtils {
 
@@ -28,8 +26,6 @@ public class BigDecimalUtils {
      * @param v1 加数
      * @param v2 被加数
      * @return
-     * @autor:chenssy
-     * @date:2014年9月15日
      */
     public static String add(String v1, String v2) {
         BigDecimal b1 = new BigDecimal(v1);
@@ -45,8 +41,6 @@ public class BigDecimalUtils {
      * @param v2 被除数
      * @param scale 精确精度
      * @return
-     * @autor:chenssy
-     * @date:2014年9月15日
      */
     public static String div(String v1, String v2, int scale, int round) {
         if (scale < 0) {
@@ -76,8 +70,6 @@ public class BigDecimalUtils {
      * @param v1 比较数
      * @param v2 被比较数
      * @return
-     * @autor:chenssy
-     * @date:2014年9月15日
      */
     public static int compareTo(String v1, String v2) {
         BigDecimal b1 = new BigDecimal(v1);
@@ -91,8 +83,6 @@ public class BigDecimalUtils {
      * @param v1
      * @param v2
      * @return
-     * @autor:chenssy
-     * @date:2014年9月15日
      */
     public static String returnMin(String v1, String v2) {
         BigDecimal b1 = new BigDecimal(v1);
@@ -106,8 +96,6 @@ public class BigDecimalUtils {
      * @param v1
      * @param v2
      * @return
-     * @autor:chenssy
-     * @date:2014年9月15日
      */
     public static String returnMax(String v1, String v2) {
         BigDecimal b1 = new BigDecimal(v1);
@@ -121,8 +109,6 @@ public class BigDecimalUtils {
      * @param value
      * @param scale
      * @return
-     * @author:chenssy
-     * @date:2014年10月21日
      */
     public static BigDecimal getValue(BigDecimal value, int scale) {
         if (!ValidateHelper.isEmpty(value)) {
@@ -136,8 +122,6 @@ public class BigDecimalUtils {
      *
      * @param value 待转换的数值
      * @return
-     * @author:chenssy
-     * @date:2014年10月17日
      */
     public static BigDecimal getBigDecimal(Object value) {
         BigDecimal resultValue = new BigDecimal(0);
@@ -161,8 +145,6 @@ public class BigDecimalUtils {
      *
      * @param value
      * @return
-     * @autor:chenssy
-     * @date:2014年9月20日
      */
     public static BigDecimal getBigDecimal(Object value, BigDecimal resultValue) {
         if (ValidateHelper.isEmpty(value)) {
@@ -179,8 +161,6 @@ public class BigDecimalUtils {
      *
      * @param value
      * @return
-     * @autor:chenssy
-     * @date:2014年9月20日
      */
     public static Long bigDecimalToLong(BigDecimal value) {
         if (value != null) {
@@ -194,8 +174,6 @@ public class BigDecimalUtils {
      *
      * @param value
      * @return
-     * @autor:huangc
-     * @date:2014年9月20日
      */
     public static Integer bigDecimalToInteger(BigDecimal value) {
         if (value != null) {
