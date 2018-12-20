@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration debug="true"
+  xmlns:log4j='http://jakarta.apache.org/log4j/'>
+
+  <!--打印到 console-->
+  <appender name="consoleAppender" class="org.apache.log4j.ConsoleAppender">
+    <layout class="com.jutils.appender.DesensitizeLayout">
+      <param name="ConversionPattern"
+        value="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n"/>
+    </layout>
+    <!--<layout class="org.apache.log4j.PatternLayout">-->
+      <!--<param name="ConversionPattern"-->
+        <!--value="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n"/>-->
+    <!--</layout>-->
+  </appender>
+
+  <!--打印到文件-->
+  <appender name="file" class="org.apache.log4j.RollingFileAppender">
+    <param name="append" value="false"/>
+    <param name="maxFileSize" value="10MB"/>
+    <param name="maxBackupIndex" value="5"/>
+    <!-- For Tomcat -->
+    <param name="file" value="/tmp/jutils/jutils.log"/>
+    <layout class="com.jutils.appender.DesensitizeLayout">
+      <param name="ConversionPattern"
+        value="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n"/>
+    </layout>
+  </appender>
+
+  <appender name="dailyRolling" class="com.jutils.appender.DesensitizeDailyRollingFileAppender">
+    <param name="Append" value="true"/>
+    <param name="File" value="/tmp/jutils/roll_jutils.log"/>
+    <param name="DatePattern" value=".yyyyMMdd"/>
+    <!--<param name="threshold" value="error"/>-->
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="%d{ISO8601} %-5p [%t] [%l] - %m%n"/>
+    </layout>
+  </appender>
+
+  <appender name="sensitiveAppender" class="com.jutils.appender.DesensitizeAppender">
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n"/>
+    </layout>
+  </appender>
+
+  <appender name="appenderWrapper" class="com.jutils.appender.DesensitizeAppenderWrapper">
+    <appender-ref ref="consoleAppender"/>
+  </appender>
+
+  <root>
+    <level value="DEBUG"/>
+    <appender-ref ref="consoleAppender"/>
+    <!--<appender-ref ref="file"/>-->
+    <!--<appender-ref ref="sensitiveAppender"/>-->
+    <!--<appender-ref ref="dailyRolling"/>-->
+    <!--<appender-ref ref="appenderWrapper"/>-->
+  </root>
+
+</log4j:configuration>
