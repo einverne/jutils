@@ -10,7 +10,9 @@ public class DesensitizeLayout extends PatternLayout {
 	public String format(LoggingEvent event) {
 		if (event.getMessage() != null && event.getMessage() instanceof String) {
 			String message = event.getMessage().toString();
-			message = DesensitizeUtils.filterAll(message);
+			message = DesensitizeUtils.filterIdentityId(message);
+			message = DesensitizeUtils.filterPhone(message);
+			message = DesensitizeUtils.filterName(message);
 			try {
 				Field msgField = LoggingEvent.class.getDeclaredField("message");
 				msgField.setAccessible(true);

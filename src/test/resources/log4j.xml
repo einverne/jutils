@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
-<log4j:configuration debug="false"
+<log4j:configuration debug="true"
   xmlns:log4j='http://jakarta.apache.org/log4j/'>
 
   <!--打印到 console-->
@@ -48,16 +48,18 @@
     <appender-ref ref="consoleAppender"/>
   </appender>
 
-  <appender name="levelA" class="org.apache.log4j.ConsoleAppender">
+  <!--LogLevelA 用该 Appender -->
+  <appender name="levelAWarnAppender" class="org.apache.log4j.ConsoleAppender">
+    <param name="threshold" value="WARN"/>
     <layout class="org.apache.log4j.PatternLayout">
       <param name="ConversionPattern"
-        value="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n"/>
+        value="levelAInfoAppender %d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n"/>
     </layout>
   </appender>
   <!--这里的 additivity 配置了该 package 下的 appender 是否需要传递到 root , 默认为 true , 造成日志打印两遍 -->
   <logger name="com.jutils.appender.LogLevelATest" additivity="false">
     <level value="INFO"/>
-    <appender-ref ref="levelA"/>
+    <appender-ref ref="levelAWarnAppender"/>
   </logger>
   <logger name="com.jutils.appender.LogLevelBTest" >
     <level value="WARN"/>
