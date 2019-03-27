@@ -1,6 +1,10 @@
 package com.jutils.json;
 
+import com.alibaba.fastjson.JSON;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
+import com.google.gson.Gson;
+import java.io.IOException;
 import java.util.List;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -66,5 +70,25 @@ public class JSONUtilsTest {
 
 	@Test
 	public void writeValueAsBytes() {
+	}
+
+	@Test
+	public void testRenameFieldGson() {
+		String originStr = "{\"familyName\":\"Ein\",\"age\":20,\"salary\":1000.0}";
+		EmployeeGson employee = new Gson().fromJson(originStr, EmployeeGson.class);
+		System.out.println(employee);
+	}
+	@Test
+	public void testRenameFieldFastjson() {
+		String originStr = "{\"familyName\":\"Ein\",\"age\":20,\"salary\":1000.0}";
+		EmployeeFastjson employee = JSON.parseObject(originStr, EmployeeFastjson.class);
+		System.out.println(employee);
+	}
+	@Test
+	public void testRenameFieldJackson() throws IOException {
+		String originStr = "{\"familyName\":\"Ein\",\"age\":20,\"salary\":1000.0}";
+		EmployeeJackson employeeJackson = new ObjectMapper()
+				.readValue(originStr, EmployeeJackson.class);
+		System.out.println(employeeJackson);
 	}
 }

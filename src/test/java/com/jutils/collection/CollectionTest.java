@@ -1,5 +1,7 @@
 package com.jutils.collection;
 
+import com.google.common.collect.Lists;
+import java.util.concurrent.ArrayBlockingQueue;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.Predicate;
 import org.junit.Test;

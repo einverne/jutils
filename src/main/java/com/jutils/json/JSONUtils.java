@@ -8,6 +8,9 @@ import com.google.common.base.Strings;
 import java.io.InputStream;
 import java.util.List;
 
+/**
+ * 使用 jackson 来实现的 JSON 序列化和反序列化
+ */
 public class JSONUtils {
 
 	public static ObjectMapper objectMapper = new ObjectMapper();
