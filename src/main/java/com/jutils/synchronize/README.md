@@ -75,9 +75,9 @@ synchronized 块是这样一个代码块，其中的代码必须获得对象 syn
 
 如果再细的分类，synchronized 可作用于
 
-- instance变量
+- instance实例变量
 - object reference（对象引用）
-- static函数
+- static 静态方法
 - class literals(类名称字面常量)
 
 在进一步阐述之前，我们需要明确几点：
