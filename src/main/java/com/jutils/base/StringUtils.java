@@ -281,13 +281,11 @@ public class StringUtils {
         return htmlStr.trim(); // 返回文本字符串
     }
 
-    /**
-     * 字符串是否为空
-     *
-     * @param str
-     * @return
-     */
-    public static boolean isEmpty(String str) {
-        return str == null || "".equals(str);
+    public static String filterEmoji(String source) {
+        if (org.apache.commons.lang3.StringUtils.isNotBlank(source)) {
+            return source.replaceAll("[\\ud800\\udc00-\\udbff\\udfff\\ud800-\\udfff]", "");
+        } else {
+            return source;
+        }
     }
 }
