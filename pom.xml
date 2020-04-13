@@ -125,8 +125,8 @@
     </dependency>
     <dependency>
       <groupId>org.jodd</groupId>
-      <artifactId>jodd-xxx</artifactId>
-      <version>5.1.3</version>
+      <artifactId>jodd-json</artifactId>
+      <version>5.1.4</version>
     </dependency>
   </dependencies>
   <build>
