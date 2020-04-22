@@ -17,19 +17,19 @@ package com.jutils.synchronize;
 public class ThreadLocalDemo {
 
 	private static int normalVar;
-	private static ThreadLocal<Integer> threadLocal = new ThreadLocal<>();
+	private final static ThreadLocal<Integer> threadLocal = new ThreadLocal<>();
 
 	public static void main(String[] args) {
 
 		normalVar = 0;
 		threadLocal.set(0);
 		for (int i = 0; i < 5; i++) {
-			new Thread(new ThreadLocalRunnable(), "ThreadName " + i).start();
-			new Thread(new NormalRunable(), "Normal " + i).start();
+			new Thread(new TestRunnable(), "ThreadName " + i).start();
+			new Thread(new NormalRunnable(), "Normal " + i).start();
 		}
 	}
 
-	public static class ThreadLocalRunnable implements Runnable {
+	public static class TestRunnable implements Runnable {
 
 		@Override
 		public void run() {
@@ -42,7 +42,7 @@ public class ThreadLocalDemo {
 		}
 	}
 
-	public static class NormalRunable implements Runnable {
+	public static class NormalRunnable implements Runnable {
 
 		@Override
 		public void run() {
